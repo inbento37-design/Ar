@@ -64,7 +64,7 @@
 
   <script>
     // === CONFIGURACIÓN ===
-    const CHANNEL_URL = "https://www.youtube.com/@jk-trick2625";
+    const CHANNEL_URL = "https://www.youtube.com/@jk-trickxitxx2625";
     const VIDEO_URL = "https://youtu.be/QJwx8fBnkz4?si=qXBtCZV5wUbRqt1m";
 
     // ⚠️ AQUI PONES TU ENLACE DE DESCARGA SEGURO ⚠️
