@@ -1,140 +1,127 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generador de Configuración para Free Fire</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        .container {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 300px;
-        }
-        h1 {
-            text-align: center;
-            color: #333;
-        }
-        p {
-            text-align: center;
-            color: #666;
-        }
-        form {
-            display: flex;
-            flex-direction: column;
-        }
-        label {
-            margin-top: 10px;
-            color: #333;
-        }
-        input, select {
-            padding: 10px;
-            margin-top: 5px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        input[type="submit"] {
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            cursor: pointer;
-            margin-top: 20px;
-        }
-        input[type="submit"]:hover {
-            background-color: #0056b3;
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Acceso Exclusivo</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    * { font-family: Arial, sans-serif; }
+  </style>
 </head>
-<body>
-    <div class="container">
-        <h1>Generador de Configuración para Free Fire</h1>
-        <p>Personaliza tu configuración y descarga el archivo.</p>
-        <form id="configForm">
-            <label for="username">Nombre de Usuario:</label>
-            <input type="text" id="username" name="username" required>
-            <label for="aimbot">Aimbot:</label>
-            <select id="aimbot" name="aimbot">
-                <option value="true">Activado</option>
-                <option value="false">Desactivado</option>
-            </select>
-            <label for="wallhack">Wallhack:</label>
-            <select id="wallhack" name="wallhack">
-                <option value="true">Activado</option>
-                <option value="false">Desactivado</option>
-            </select>
-            <label for="auto_headshot">Auto Headshot:</label>
-            <select id="auto_headshot" name="auto_headshot">
-                <option value="true">Activado</option>
-                <option value="false">Desactivado</option>
-            </select>
-            <input type="submit" value="Generar Configuración">
-        </form>
-        <a id="downloadLink" style="display:none;">Descargar Configuración</a>
+<body class="bg-gray-50 text-gray-900">
+
+  <header class="bg-white shadow p-4 flex justify-between items-center">
+    <h1 class="text-xl font-bold">🎯 Acceso Exclusivo</h1>
+    <button id="open-sub-modal" class="bg-red-600 text-white px-4 py-2 rounded-lg font-semibold">
+      Suscribirse
+    </button>
+  </header>
+
+  <main class="max-w-2xl mx-auto p-6 text-center">
+    <h2 class="text-2xl font-bold mb-4">Sigue los pasos para acceder</h2>
+    <p class="mb-6">Debes suscribirte, dar like y verificar antes de acceder al contenido.</p>
+    <button id="open-gate" class="bg-red-600 text-white px-6 py-3 rounded-lg font-semibold">Comenzar</button>
+  </main>
+
+  <!-- Modal -->
+  <div id="subscribe-modal" class="fixed inset-0 bg-black/70 hidden z-50 flex items-center justify-center">
+    <div class="bg-white rounded-xl shadow-xl max-w-md w-full p-6 text-center">
+      <h3 class="text-xl font-bold mb-2">Verificación de pasos</h3>
+      <p class="text-sm text-gray-600 mb-4">Completa cada paso para desbloquear el contenido.</p>
+
+      <!-- Paso 1 -->
+      <div id="like-step">
+        <button id="open-video" class="bg-red-600 text-white px-5 py-3 rounded-lg font-semibold">
+          Dar like al video
+        </button>
+      </div>
+
+      <!-- Paso 2 -->
+      <div id="robot-check" class="hidden mt-4">
+        <button id="not-robot" class="px-5 py-3 rounded-lg border-2 border-gray-500 font-semibold">
+          No soy un robot
+        </button>
+      </div>
+
+      <!-- Paso 3 -->
+      <div id="progress-area" class="hidden mt-4">
+        <p class="text-sm mb-2">Espera 7 segundos...</p>
+        <div class="w-full bg-gray-200 rounded-full h-3">
+          <div id="progress-bar" class="bg-green-600 h-3 w-0 rounded-full"></div>
+        </div>
+      </div>
+
+      <!-- Paso 4 -->
+      <div id="final-area" class="hidden mt-4">
+        <p class="text-sm mb-2">¡Listo! Ahora puedes continuar:</p>
+        <button id="download-btn" class="bg-green-600 text-white px-5 py-3 rounded-lg font-semibold">
+          Descargar ahora
+        </button>
+      </div>
     </div>
+  </div>
 
-    <script>
-        document.getElementById('configForm').addEventListener('submit', function(event) {
-            event.preventDefault();
+  <script>
+    // === CONFIGURACIÓN ===
+    const CHANNEL_URL = "https://www.youtube.com/@jk-trick2625";
+    const VIDEO_URL = "https://youtu.be/QJwx8fBnkz4?si=qXBtCZV5wUbRqt1m";
 
-            const username = document.getElementById('username').value;
-            const aimbot = document.getElementById('aimbot').value === 'true';
-            const wallhack = document.getElementById('wallhack').value === 'true';
-            const auto_headshot = document.getElementById('auto_headshot').value === 'true';
+    // ⚠️ AQUI PONES TU ENLACE DE DESCARGA SEGURO ⚠️
+    // Ejemplo:
+    // const DOWNLOAD_URL = "https://tusitio.com/archivo_permitido.zip";
+    const DOWNLOAD_URL = "https://www.mediafire.com/file/ajrpcnwh5m2056j/AIMBOT+BRASILEÑO+V4🇧🇷.zip/file";
 
-            const configContent = `[GameSettings]
-username=${username}
-aimbot_enabled=${aimbot}
-wallhack_enabled=${wallhack}
-auto_headshot_enabled=${auto_headshot}
-aimbot_sensitivity=0.8
-aimbot_smoothness=0.3
-aimbot_fov=80
-aimbot_recoil_control=0.7
-aimbot_aim_key=mouse1
-aimbot_predictive_aim=true
-aimbot_predictive_factor=0.5
+    // === ELEMENTOS ===
+    const modal = document.getElementById('subscribe-modal');
+    const openGateBtn = document.getElementById('open-gate');
+    const openVideoBtn = document.getElementById('open-video');
+    const robotCheck = document.getElementById('robot-check');
+    const notRobotBtn = document.getElementById('not-robot');
+    const progressArea = document.getElementById('progress-area');
+    const progressBar = document.getElementById('progress-bar');
+    const finalArea = document.getElementById('final-area');
+    const downloadBtn = document.getElementById('download-btn');
 
-[AdvancedSettings]
-enemy_color_detection=true
-enemy_colors=255,0,0,0,255,0
-enemy_detection_threshold=127
-enemy_tracking=true
-enemy_tracking_speed=0.7
+    function showModal() {
+      modal.classList.remove('hidden');
+    }
 
-[PerformanceSettings]
-performance_mode=true
-update_interval=50
-max_enemies_to_track=5
+    openGateBtn.addEventListener('click', () => {
+      showModal();
+      window.open(CHANNEL_URL, '_blank');
+    });
 
-[DebugSettings]
-debug_mode=false
-log_level=1
-log_file=aimbot_debug.log
+    document.getElementById('open-sub-modal').addEventListener('click', () => {
+      showModal();
+      window.open(CHANNEL_URL, '_blank');
+    });
 
-[Hotkeys]
-toggle_aimbot_key=F1
-reload_config_key=F3
-exit_key=Esc`;
+    openVideoBtn.addEventListener('click', () => {
+      window.open(VIDEO_URL, '_blank');
+      robotCheck.classList.remove('hidden');
+    });
 
-            const blob = new Blob([configContent], { type: 'text/plain' });
-            const url = URL.createObjectURL(blob);
-            const downloadLink = document.getElementById('downloadLink');
-            downloadLink.href = url;
-            downloadLink.download = `freefire_config_${username}.txt`;
-            downloadLink.style.display = 'block';
-            downloadLink.click();
-        });
-    </script>
+    notRobotBtn.addEventListener('click', () => {
+      robotCheck.classList.add('hidden');
+      progressArea.classList.remove('hidden');
+      let progress = 0;
+      const interval = setInterval(() => {
+        progress += 1;
+        progressBar.style.width = progress + '%';
+        if (progress >= 100) {
+          clearInterval(interval);
+          progressArea.classList.add('hidden');
+          finalArea.classList.remove('hidden');
+        }
+      }, 70);
+    });
+
+    // Abrir el enlace de descarga seguro
+    downloadBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.open(DOWNLOAD_URL, '_blank');
+    });
+  </script>
 </body>
 </html>
